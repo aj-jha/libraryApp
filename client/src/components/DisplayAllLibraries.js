@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-apollo-hooks";
+import gql from "graphql-tag";
 
 const DisplayAllLibraries = ({ data }) => {
+  const GET_LIBRARIES_QUERY = gql`
+    query {
+      getAllLibraries {
+        id
+        open
+        name
+        address
+      }
+    }
+  `;
+  const response = useQuery(GET_LIBRARIES_QUERY);
+  console.log(response);
   console.log(data.getAllLibraries);
   return (
     <div>
