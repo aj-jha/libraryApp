@@ -10,17 +10,17 @@ import {
   Redirect
 } from "react-router-dom"
 
-import "./App.css";
-import DisplayInventory from "./components/DisplayInventory";
-import BorrowForm from "./components/BorrowForm";
-import ReturnBook from "./components/ReturnBook";
-import AddBook from "./components/AddBook";
-import DisplayAllLibraries from "./components/DisplayAllLibraries";
-import DisplayUser from "./components/DisplayUser";
-import Signup from "./components/Signup";
-import Login from "./components/LoginForm";
-import LibrarianView from "./components/LibrarianView";
-
+import "./App.css"
+import DisplayInventory from "./components/DisplayInventory"
+import BorrowForm from "./components/BorrowForm"
+import ReturnBook from "./components/ReturnBook"
+import AddBook from "./components/AddBook"
+import DisplayAllLibraries from "./components/DisplayAllLibraries"
+import DisplayUser from "./components/DisplayUser"
+import Signup from "./components/Signup"
+import Login from "./components/LoginForm"
+import GetMyLibraryInventory from "./components/GetMyLibraryInventory"
+import LibrarianView from "./components/LibrarianView"
 
 const App = () => {
   const GET_LIBRARIES_QUERY = gql`
@@ -82,6 +82,17 @@ const App = () => {
           <Route exact path="/signUp">
             <Signup />
           </Route>
+          <Route path="/userhome">
+            <div>
+              <h1>Hello User!</h1>
+              <GetMyLibraryInventory />
+              <BorrowForm
+                library={library}
+                setLibrary={setLibrary}
+                borrowCounter={setBorrowCounter}
+              />
+            </div>
+          </Route>
           <Route path="/login">
             <Login />
           </Route>
@@ -117,10 +128,7 @@ const App = () => {
 
           <Route path="/librarian">
             <LibrarianView />
-    </Route>
-            
-  
-
+          </Route>
 
           <Route path="/libraries">
             <DisplayAllLibraries data={response.data} />
