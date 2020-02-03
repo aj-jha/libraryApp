@@ -20,6 +20,7 @@ import DisplayUser from "./components/DisplayUser"
 import Signup from "./components/Signup"
 import Login from "./components/LoginForm"
 import GetMyLibraryInventory from "./components/GetMyLibraryInventory"
+import LibrarianView from "./components/LibrarianView"
 
 const App = () => {
   const GET_LIBRARIES_QUERY = gql`
@@ -63,42 +64,24 @@ const App = () => {
   if (response.error) {
     console.log(response.error)
   }
-  console.log(response.data)
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link>Home</Link>
-            </li>
-            <li>
-              <Link to="/userhome">User Home</Link>
-            </li>
-            <li>
-              <Link to="/libraries">Libraries</Link>
-            </li>
-            <li>
-              <Link to="/inventories">Inventory</Link>
-            </li>
-            <li>
-              <Link to="/borrow">Borrow/Return</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/addbook">Add Book</Link>
-            </li>
-          </ul>
-        </nav>
+        <div>
+          <button>
+            <Link to="/">Home</Link>
+          </button>
+          <button>
+            <Link to="/signUp">SignUp</Link>
+          </button>
+          <button>
+            <Link to="/login">Login</Link>
+          </button>
+        </div>
         <Switch>
+          <Route exact path="/signUp">
+            <Signup />
+          </Route>
           <Route path="/userhome">
             <div>
               <h1>Hello User!</h1>
@@ -110,8 +93,8 @@ const App = () => {
               />
             </div>
           </Route>
-          <Route exact path="/">
-            <DisplayAllLibraries data={response.data} />
+          <Route path="/login">
+            <Login />
           </Route>
           <Route
             path="/inventories/:id"
@@ -124,12 +107,12 @@ const App = () => {
             <Signup />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login data={response.data} />
           </Route>
-          <Route path="addbook">
+          <Route path="/addbook">
             <AddBook />
           </Route>
-          <Route path="borrow">
+          <Route path="/borrow">
             <BorrowForm
               library={library}
               setLibrary={setLibrary}
@@ -141,6 +124,14 @@ const App = () => {
               setLibrary={setLibrary}
               borrowCounter={setBorrowCounter}
             />
+          </Route>
+
+          <Route path="/librarian">
+            <LibrarianView />
+          </Route>
+
+          <Route path="/libraries">
+            <DisplayAllLibraries data={response.data} />
           </Route>
           <Redirect to="/" />
         </Switch>

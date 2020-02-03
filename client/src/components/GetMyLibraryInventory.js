@@ -31,7 +31,7 @@ const GetMyLibraryInventory = props => {
         console.log(book)
         return (
           <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <div>hello</div>
+            <div>{book.id}</div>
             <div>{book.title}</div>
             <div>{book.author}</div>
             <div>{book.status}</div>
