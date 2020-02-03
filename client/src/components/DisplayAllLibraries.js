@@ -1,14 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
 const DisplayAllLibraries = ({ data }) => {
-  console.log(data.getAllLibraries);
+  console.log(data.getAllLibraries)
   return (
     <div>
       <table>
         <tr>
           {Object.keys(data.getAllLibraries[0]).map(key => {
-            return <th>{key}</th>;
+            return <th>{key}</th>
           })}
         </tr>
         {data.getAllLibraries.map(library => {
@@ -18,17 +18,17 @@ const DisplayAllLibraries = ({ data }) => {
           return (
             <tr>
               {Object.values(library).map(value => {
-                return <td>{value}</td>;
+                return <td>{value}</td>
               })}
               <td>
                 <Link to={`/inventories/${library.id}`}>Display Inventory</Link>
               </td>
             </tr>
-          );
+          )
         })}
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default DisplayAllLibraries;
+export default DisplayAllLibraries
