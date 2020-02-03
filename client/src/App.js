@@ -66,37 +66,22 @@ const App = () => {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link>Home</Link>
-            </li>
-            <li>
-              <Link to="/libraries">Libraries</Link>
-            </li>
-            <li>
-              <Link to="/inventories">Inventory</Link>
-            </li>
-            <li>
-              <Link to="/borrow">Borrow/Return</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/addbook">Add Book</Link>
-            </li>
-          </ul>
-        </nav>
+        <div>
+          <button>
+            <Link to="/">Home</Link>
+          </button>
+          <button>
+            <Link to="/signUp">SignUp</Link>
+          </button>
+          <button>
+            <Link to="/login">Login</Link>
+          </button>
+        </div>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/signUp">
             <Signup />
+          </Route>
+          <Route path="/login">
             <Login />
           </Route>
           <Route
