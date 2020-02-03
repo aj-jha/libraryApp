@@ -1,0 +1,40 @@
+CREATE TABLE libraries (
+    id SERIAL PRIMARY KEY,
+    open BOOLEAN NOT NULL,
+    name TEXT UNIQUE NOT NULL,
+    address TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    address TEXT,
+    role TEXT NOT NULL
+);
+
+CREATE TABLE books (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    status TEXT NOT NULL,
+    library_id INTEGER REFERENCES libraries(id) NOT NULL,
+    borrower_id INTEGER REFERENCES users(id),
+    CONSTRAINT unq_title_libid UNIQUE (title, library_id)
+);
+
+CREATE TABLE libraries_users (
+    library_id INTEGER REFERENCES libraries(id) NOT NULL,
+    user_id INTEGER REFERENCES users(id) NOT NULL,
+    CONSTRAINT unq_libid_userid UNIQUE (library_id, user_id)
+);
+
+
+
+CREATE SCHEMA libraryapp;
+
+CREATE TABLE libraryapp.libraries (
+    id SERIAL PRIMARY KEY,
+    open BOOLEAN NOT NULL,
+    name TEXT UNIQUE NOT NULL,
+    address TEXT UNIQUE NOT NULL
+);
