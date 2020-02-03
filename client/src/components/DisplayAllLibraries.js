@@ -1,17 +1,40 @@
-import React from "react"
-import { Link } from "react-router-dom"
 
-const DisplayAllLibraries = ({ data }) => {
-  console.log(data.getAllLibraries)
+import React, { useState } from "react";
+import { useQuery } from "react-apollo-hooks";
+import gql from "graphql-tag";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
+const DisplayAllLibraries = () => {
+  const GET_LIBRARIES_QUERY = gql`
+    query {
+      getAllLibraries {
+        id
+        open
+        name
+        address
+      }
+    }
+  `;
+  const response = useQuery(GET_LIBRARIES_QUERY);
+  console.log(response);
+
   return (
     <div>
       <table>
         <tr>
-          {Object.keys(data.getAllLibraries[0]).map(key => {
-            return <th>{key}</th>
+
+          {Object.keys(response.data.getAllLibraries[0]).map(key => {
+            return <th>{key}</th>;
+
           })}
         </tr>
-        {data.getAllLibraries.map(library => {
+        {response.data.getAllLibraries.map(library => {
           // map on map -> returns all items in the array in rows
           //tr tag = create rows/ td tag = create columns
           //this.prop.library access the library prop passed in from App.js
