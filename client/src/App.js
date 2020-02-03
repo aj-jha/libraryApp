@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
-import { useQuery } from "react-apollo-hooks";
-import gql from "graphql-tag";
+import { useQuery } from "react-apollo-hooks"
+import gql from "graphql-tag"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect
-} from "react-router-dom";
+} from "react-router-dom"
 
 import "./App.css";
 import DisplayInventory from "./components/DisplayInventory";
@@ -21,6 +21,7 @@ import Signup from "./components/Signup";
 import Login from "./components/LoginForm";
 import LibrarianView from "./components/LibrarianView";
 
+
 const App = () => {
   const GET_LIBRARIES_QUERY = gql`
     query {
@@ -31,9 +32,9 @@ const App = () => {
         address
       }
     }
-  `;
-  const response = useQuery(GET_LIBRARIES_QUERY);
-  console.log(response);
+  `
+  const response = useQuery(GET_LIBRARIES_QUERY)
+  console.log(response)
   const [library, setLibrary] = useState([
     {
       id: 1,
@@ -53,52 +54,36 @@ const App = () => {
       author: "AJ",
       borrowedBy: null
     }
-  ]);
-  const [borrowCounter, setBorrowCounter] = useState(0);
+  ])
+  const [borrowCounter, setBorrowCounter] = useState(0)
 
   if (response.loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   if (response.error) {
-    console.log(response.error);
+    console.log(response.error)
   }
-
-  console.log(response.data);
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link>Home</Link>
-            </li>
-            <li>
-              <Link to="/libraries">Libraries</Link>
-            </li>
-            <li>
-              <Link to="/inventories">Inventory</Link>
-            </li>
-            <li>
-              <Link to="/borrow">Borrow/Return</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/addbook">Add Book</Link>
-            </li>
-          </ul>
-        </nav>
+        <div>
+          <button>
+            <Link to="/">Home</Link>
+          </button>
+          <button>
+            <Link to="/signUp">SignUp</Link>
+          </button>
+          <button>
+            <Link to="/login">Login</Link>
+          </button>
+        </div>
         <Switch>
-          <Route exact path="/">
-            <DisplayAllLibraries data={response.data} />
+          <Route exact path="/signUp">
+            <Signup />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
           <Route
             path="/inventories/:id"
@@ -129,15 +114,23 @@ const App = () => {
               borrowCounter={setBorrowCounter}
             />
           </Route>
+
           <Route path="/librarian">
             <LibrarianView />
+    </Route>
+            
+  
+
+
+          <Route path="/libraries">
+            <DisplayAllLibraries data={response.data} />
           </Route>
           <Redirect to="/" />
         </Switch>
       </div>
     </Router>
-  );
-};
+  )
+}
 
 // class App extends React.Component {
 //   constructor() {
@@ -283,4 +276,4 @@ const App = () => {
 // }
 // //Library property is passed through to Display Library Function
 
-export default App;
+export default App
