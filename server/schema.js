@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require("apollo-server-express")
 // schema.js is the rules/structure file for resolver.js
 //! after variable type means required. ! in the [Library = required] -> returns null or array with some value ! outside square brackets will GQL require to return an array.
 module.exports = gql`
@@ -8,6 +8,7 @@ module.exports = gql`
     getInventory(library_id: ID!): [Book]!
     getLent: [Book]!
     getUsers(library_id: ID): [User]!
+    getMyLibraryInventory: [Book]!
   }
 
   type Mutation {
@@ -78,4 +79,4 @@ module.exports = gql`
     status: String!
     borrower: User
   }
-`;
+`

@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
-import { useQuery } from "react-apollo-hooks";
-import gql from "graphql-tag";
+import { useQuery } from "react-apollo-hooks"
+import gql from "graphql-tag"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect
-} from "react-router-dom";
+} from "react-router-dom"
 
-import "./App.css";
-import DisplayInventory from "./components/DisplayInventory";
-import BorrowForm from "./components/BorrowForm";
-import ReturnBook from "./components/ReturnBook";
-import AddBook from "./components/AddBook";
-import DisplayAllLibraries from "./components/DisplayAllLibraries";
-import DisplayUser from "./components/DisplayUser";
-import Signup from "./components/Signup";
-import Login from "./components/LoginForm";
+import "./App.css"
+import DisplayInventory from "./components/DisplayInventory"
+import BorrowForm from "./components/BorrowForm"
+import ReturnBook from "./components/ReturnBook"
+import AddBook from "./components/AddBook"
+import DisplayAllLibraries from "./components/DisplayAllLibraries"
+import DisplayUser from "./components/DisplayUser"
+import Signup from "./components/Signup"
+import Login from "./components/LoginForm"
+import GetMyLibraryInventory from "./components/GetMyLibraryInventory"
 
 const App = () => {
   const GET_LIBRARIES_QUERY = gql`
@@ -30,9 +31,9 @@ const App = () => {
         address
       }
     }
-  `;
-  const response = useQuery(GET_LIBRARIES_QUERY);
-  console.log(response);
+  `
+  const response = useQuery(GET_LIBRARIES_QUERY)
+  console.log(response)
   const [library, setLibrary] = useState([
     {
       id: 1,
@@ -52,17 +53,17 @@ const App = () => {
       author: "AJ",
       borrowedBy: null
     }
-  ]);
-  const [borrowCounter, setBorrowCounter] = useState(0);
+  ])
+  const [borrowCounter, setBorrowCounter] = useState(0)
 
   if (response.loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   if (response.error) {
-    console.log(response.error);
+    console.log(response.error)
   }
-  console.log(response.data);
+  console.log(response.data)
   return (
     <Router>
       <div>
@@ -70,6 +71,9 @@ const App = () => {
           <ul>
             <li>
               <Link>Home</Link>
+            </li>
+            <li>
+              <Link to="/userhome">User Home</Link>
             </li>
             <li>
               <Link to="/libraries">Libraries</Link>
@@ -95,6 +99,17 @@ const App = () => {
           </ul>
         </nav>
         <Switch>
+          <Route path="/userhome">
+            <div>
+              <h1>Hello User!</h1>
+              <GetMyLibraryInventory />
+              <BorrowForm
+                library={library}
+                setLibrary={setLibrary}
+                borrowCounter={setBorrowCounter}
+              />
+            </div>
+          </Route>
           <Route exact path="/">
             <DisplayAllLibraries data={response.data} />
           </Route>
@@ -131,8 +146,8 @@ const App = () => {
         </Switch>
       </div>
     </Router>
-  );
-};
+  )
+}
 
 // class App extends React.Component {
 //   constructor() {
@@ -278,4 +293,4 @@ const App = () => {
 // }
 // //Library property is passed through to Display Library Function
 
-export default App;
+export default App
