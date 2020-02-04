@@ -23,6 +23,7 @@ const Login = () => {
     }
   `
   const [login, { loading, error, data }] = useMutation(LOGIN_MUTATION)
+  console.log(loading)
   console.log(error)
   console.log(data)
 
@@ -45,7 +46,7 @@ const Login = () => {
           { setSubmitting }
         ) => {
           login({
-            variables: { email: values.email, password: values.password }
+            variables: { values }
           })
           // variables (Defined by apollo hooks) stores input variable from the form or input values
           // signup matches the required variable input name in the GQL query
@@ -55,32 +56,33 @@ const Login = () => {
       >
         {fProps => {
           return (
-            <div>
+            <form onSubmit={fProps.handleSubmit}>
               <h1>Login</h1>
-              <form onSubmit={fProps.handleSubmit}>
-                <input
-                  name="email"
-                  type="text"
-                  value={fProps.values.email}
-                  onChange={fProps.handleChange}
-                  onBlur={fProps.onBlur}
-                />
-                {fProps.errors.email && fProps.touched.email && (
-                  <div>{fProps.errors.email}</div>
-                )}
-                <input
-                  name="password"
-                  type="password"
-                  value={fProps.values.password}
-                  onChange={fProps.handleChange}
-                  onBlur={fProps.onBlur}
-                />
-                {fProps.errors.password && fProps.touched.password && (
-                  <div>{fProps.errors.password}</div>
-                )}
-                <button type="submit">Submit</button>
-              </form>
-            </div>
+              <p>Email</p>
+              <input
+                name="email"
+                type="text"
+                value={fProps.values.email}
+                onChange={fProps.handleChange}
+                onBlur={fProps.handleBlur}
+              />
+              {fProps.errors.email && fProps.touched.email && (
+                <div>{fProps.errors.email}</div>
+              )}
+              {console.log(fProps.touched.email)}
+              <p>Password</p>
+              <input
+                name="password"
+                type="password"
+                value={fProps.values.password}
+                onChange={fProps.handleChange}
+                onBlur={fProps.handleBlur}
+              />
+              {fProps.errors.password && fProps.touched.password && (
+                <div>{fProps.errors.password}</div>
+              )}
+              <button type="submit">Submit</button>
+            </form>
           )
         }}
       </Formik>
@@ -88,7 +90,7 @@ const Login = () => {
       {error && <div>Error: {error}</div>}
       {data && (
         <div>
-          {data.login.user.role == "librarian" ? (
+          {data.login.user.role === "librarian" ? (
             <Redirect to="/librarian" />
           ) : (
             <Redirect to="/userhome" />
