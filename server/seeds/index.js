@@ -13,6 +13,10 @@ const librarySeeds = [
   {
     name: "Library Two",
     address: "2 Infinite Loop"
+  },
+  {
+    name: "Library Three",
+    address: "Book Village"
   }
   // adding more objects = more libraries in DB
 ];
@@ -31,6 +35,21 @@ const bookSeeds = [
   {
     title: "The Audacity of This Bitch",
     author: "Barack Yomama",
+    library_id: 2
+  },
+  {
+    title: "THIS IS A NEW BOOK",
+    author: "SEAN LI",
+    library_id: 2
+  },
+  {
+    title: "MSBNBITY",
+    author: "AJ",
+    library_id: 2
+  },
+  {
+    title: "FEB14DTOFA?",
+    author: "AJ",
     library_id: 2
   }
 ];
