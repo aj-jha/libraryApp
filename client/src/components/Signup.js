@@ -30,7 +30,7 @@ const Signup = () => {
           email: "",
           password: "",
           address: "",
-          library_id: 0
+          library_id: ""
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(),
@@ -39,8 +39,8 @@ const Signup = () => {
             .email()
             .required(),
           password: Yup.string().min(
-            8,
-            "Password must be 8 or more characters."
+            6,
+            "Password must be 6 or more characters."
           ),
           library_id: Yup.number().required()
         })}
@@ -62,10 +62,10 @@ const Signup = () => {
             <div>
               <h1>Signup</h1>
               <form onSubmit={fProps.handleSubmit}>
-                <p>Name</p>
                 <input
                   name="name"
                   type="text"
+                  placeholder="name"
                   value={fProps.values.name}
                   onChange={fProps.handleChange}
                   onBlur={fProps.handleBlur}
@@ -73,10 +73,10 @@ const Signup = () => {
                 {fProps.errors.name && fProps.touched.name && (
                   <div>{fProps.errors.name}</div>
                 )}
-                <p>Email</p>
                 <input
                   name="email"
                   type="text"
+                  placeholder="email"
                   value={fProps.values.email}
                   onChange={fProps.handleChange}
                   onBlur={fProps.handleBlur}
@@ -84,10 +84,10 @@ const Signup = () => {
                 {fProps.errors.email && fProps.touched.email && (
                   <div>{fProps.errors.email}</div>
                 )}
-                <p>Password</p>
                 <input
                   name="password"
                   type="password"
+                  placeholder="password"
                   value={fProps.values.password}
                   onChange={fProps.handleChange}
                   onBlur={fProps.handleBlur}
@@ -95,10 +95,10 @@ const Signup = () => {
                 {fProps.errors.password && fProps.touched.password && (
                   <div>{fProps.errors.password}</div>
                 )}
-                <p>Address</p>
                 <input
                   name="address"
                   type="text"
+                  placeholder="address"
                   value={fProps.values.address}
                   onChange={fProps.handleChange}
                   onBlur={fProps.handleBlur}
@@ -106,10 +106,10 @@ const Signup = () => {
                 {fProps.errors.address && fProps.touched.address && (
                   <div>{fProps.errors.address}</div>
                 )}
-                <p>Library ID</p>
                 <input
                   name="library_id"
                   type="number"
+                  placeholder="library ID"
                   value={fProps.values.library_id}
                   onChange={fProps.handleChange}
                   onBlur={fProps.handleBlur}

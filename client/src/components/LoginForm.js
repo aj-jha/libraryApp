@@ -23,10 +23,8 @@ const Login = () => {
     }
   `
   const [login, { loading, error, data }] = useMutation(LOGIN_MUTATION)
-  console.log(loading)
   console.log(error)
   console.log(data)
-
   return (
     <div>
       <Formik
@@ -46,7 +44,7 @@ const Login = () => {
           { setSubmitting }
         ) => {
           login({
-            variables: { values }
+            variables: { email: values.email, password: values.password }
           })
           // variables (Defined by apollo hooks) stores input variable from the form or input values
           // signup matches the required variable input name in the GQL query
@@ -58,10 +56,10 @@ const Login = () => {
           return (
             <form onSubmit={fProps.handleSubmit}>
               <h1>Login</h1>
-              <p>Email</p>
               <input
                 name="email"
                 type="text"
+                placeholder="email"
                 value={fProps.values.email}
                 onChange={fProps.handleChange}
                 onBlur={fProps.handleBlur}
@@ -69,11 +67,10 @@ const Login = () => {
               {fProps.errors.email && fProps.touched.email && (
                 <div>{fProps.errors.email}</div>
               )}
-              {console.log(fProps.touched.email)}
-              <p>Password</p>
               <input
                 name="password"
                 type="password"
+                placeholder="password"
                 value={fProps.values.password}
                 onChange={fProps.handleChange}
                 onBlur={fProps.handleBlur}
@@ -90,7 +87,7 @@ const Login = () => {
       {error && <div>Error: {error}</div>}
       {data && (
         <div>
-          {data.login.user.role === "librarian" ? (
+          {data.login.user.role == "librarian" ? (
             <Redirect to="/librarian" />
           ) : (
             <Redirect to="/userhome" />
