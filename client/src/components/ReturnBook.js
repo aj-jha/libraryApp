@@ -6,6 +6,21 @@ import gql from "graphql-tag";
 
 const ReturnBook = () => {
   // $signup is the input for the GQL mutation. It is an object that is passed to the mutation to provide input values for the signup function. Its a good idea to ensure the name of variables storing the value from the input form matches the required input in the schema
+
+  const GET_MYLIBRARY_INVENTORY = gql`
+    query {
+      getMyLibraryInventory {
+        id
+        title
+        author
+        status
+        library {
+          id
+        }
+      }
+    }
+  `;
+
   const RETURNBOOK_MUTATION = gql`
     mutation($book_id: ID!) {
       returnBook(book_id: $book_id) {
@@ -25,9 +40,9 @@ const ReturnBook = () => {
     RETURNBOOK_MUTATION,
     {
       update(cache, { data: { ReturnBook } }) {
-        const { book } = cache.readQuery({ query: RETURNBOOK_MUTATION });
+        const { book } = cache.readQuery({ query: GET_MYLIBRARY_INVENTORY });
         cache.writeQuery({
-          query: RETURNBOOK_MUTATION,
+          query: GET_MYLIBRARY_INVENTORY,
           data: { book: book.concat([ReturnBook]) }
         });
       }
