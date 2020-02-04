@@ -2,13 +2,7 @@ import React, { useState } from "react"
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
 import { useQuery } from "react-apollo-hooks"
 import gql from "graphql-tag"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
 
 import "./App.css"
 import DisplayInventory from "./components/DisplayInventory"
@@ -21,6 +15,7 @@ import Signup from "./components/Signup"
 import Login from "./components/LoginForm"
 import GetMyLibraryInventory from "./components/GetMyLibraryInventory"
 import LibrarianView from "./components/LibrarianView"
+import NavButton from "./components/styledComponents/NavButton"
 
 const App = () => {
   const GET_LIBRARIES_QUERY = gql`
@@ -56,6 +51,15 @@ const App = () => {
     }
   ])
   const [borrowCounter, setBorrowCounter] = useState(0)
+  const [theme, setTheme] = useState("light")
+
+  // const changeTheme = () => {
+  //   if (theme == "light") {
+  //     setTheme("dark")
+  //   } else {
+  //     setTheme("light")
+  //   }
+  // }
 
   if (response.loading) {
     return <div>Loading...</div>
@@ -67,16 +71,17 @@ const App = () => {
   return (
     <Router>
       <div>
+        {/* <button onClick={changeTheme}>Change Theme</button> */}
         <div>
-          <button>
-            <Link to="/">Home</Link>
-          </button>
-          <button>
-            <Link to="/signUp">SignUp</Link>
-          </button>
-          <button>
-            <Link to="/login">Login</Link>
-          </button>
+          <Link to="/">
+            <NavButton theme={theme}>Home</NavButton>
+          </Link>
+          <Link to="/signUp">
+            <NavButton theme={theme}>SignUp</NavButton>
+          </Link>
+          <Link to="/login">
+            <NavButton theme={theme}>Login</NavButton>
+          </Link>
         </div>
         <Switch>
           <Route exact path="/signUp">
@@ -96,10 +101,7 @@ const App = () => {
           <Route path="/login">
             <Login />
           </Route>
-          <Route
-            path="/inventories/:id"
-            render={props => <DisplayInventory {...props} />}
-          />
+          <Route path="/inventories/:id" render={props => <DisplayInventory {...props} />} />
           <Route path="/users">
             <DisplayUser library={library} />
           </Route>
