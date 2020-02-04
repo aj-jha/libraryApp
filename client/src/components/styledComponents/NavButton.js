@@ -1,9 +1,17 @@
 import styled, { css } from "styled-components"
 
 const SignupButton = styled.button`
-  width: 500px;
-  font-size: 50px;
-  color: blue;
+display: flex;
+flex-direction:column;
+
+  width: 75px;
+  font-size: 16px;
+  color: white;
+  border-radius: 12px;
+  background-color: gray;
+  &:hover{color:#03bafc}
+
+  }
 `
 // ${props =>
 //   props.theme == "light" &&
