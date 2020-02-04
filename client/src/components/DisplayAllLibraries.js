@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useQuery } from "react-apollo-hooks";
 import gql from "graphql-tag";
@@ -22,16 +21,21 @@ const DisplayAllLibraries = () => {
     }
   `;
   const response = useQuery(GET_LIBRARIES_QUERY);
+  if (response.loading) {
+    return <div>Loading</div>;
+  }
+
+  if (response.error) {
+    return <div>{response.error}</div>;
+  }
   console.log(response);
 
   return (
     <div>
       <table>
         <tr>
-
           {Object.keys(response.data.getAllLibraries[0]).map(key => {
             return <th>{key}</th>;
-
           })}
         </tr>
         {response.data.getAllLibraries.map(library => {
@@ -41,17 +45,17 @@ const DisplayAllLibraries = () => {
           return (
             <tr>
               {Object.values(library).map(value => {
-                return <td>{value}</td>
+                return <td>{value}</td>;
               })}
               <td>
                 <Link to={`/inventories/${library.id}`}>Display Inventory</Link>
               </td>
             </tr>
-          )
+          );
         })}
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default DisplayAllLibraries
+export default DisplayAllLibraries;

@@ -1,94 +1,40 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
-import { useQuery } from "react-apollo-hooks"
-import gql from "graphql-tag"
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect
-} from "react-router-dom"
 
-import "./App.css"
-import DisplayInventory from "./components/DisplayInventory"
-import BorrowForm from "./components/BorrowForm"
-import ReturnBook from "./components/ReturnBook"
-import AddBook from "./components/AddBook"
-import DisplayAllLibraries from "./components/DisplayAllLibraries"
-import DisplayUser from "./components/DisplayUser"
-import Signup from "./components/Signup"
-import Login from "./components/LoginForm"
-import GetMyLibraryInventory from "./components/GetMyLibraryInventory"
-import LibrarianView from "./components/LibrarianView"
-import NavButton from "./components/styledComponents/NavButton"
+} from "react-router-dom";
+
+import "./App.css";
+import DisplayInventory from "./components/DisplayInventory";
+import AddBook from "./components/AddBook";
+import Signup from "./components/Signup";
+import Login from "./components/LoginForm";
+import LibrarianView from "./components/LibrarianView";
+import NavButton from "./components/styledComponents/NavButton";
+import UserView from "./components/UserView";
 import NavBar from "./components/styledComponents/NavBar"
 import HomeView from "./components/HomeView"
 
+
 const App = () => {
-  const GET_LIBRARIES_QUERY = gql`
-    query {
-      getAllLibraries {
-        id
-        open
-        name
-        address
-      }
-    }
-  `
-  const response = useQuery(GET_LIBRARIES_QUERY)
-  console.log(response)
-  const [library, setLibrary] = useState([
-    {
-      id: 1,
-      title: "Katherines' Journey in Florence",
-      author: "Sean Li",
-      borrowedBy: null
-    },
-    {
-      id: 2,
-      title: "Katherines' Journey in Ireland",
-      author: "Amber Zhao",
-      borrowedBy: null
-    },
-    {
-      id: 3,
-      title: "Katherines' Journey in Hamilton, Ontario",
-      author: "AJ",
-      borrowedBy: null
-    }
-  ])
-  const [borrowCounter, setBorrowCounter] = useState(0)
-  const [theme, setTheme] = useState("light")
-
-  // const changeTheme = () => {
-  //   if (theme == "light") {
-  //     setTheme("dark")
-  //   } else {
-  //     setTheme("light")
-  //   }
-  // }
-
-  if (response.loading) {
-    return <div>Loading...</div>
-  }
-
-  if (response.error) {
-    console.log(response.error)
-  }
   return (
     <Router>
       <div>
-        {/* <button onClick={changeTheme}>Change Theme</button> */}
         <NavBar>
           <Link to="/">
-            <NavButton theme={theme}>Home</NavButton>
+            <NavButton>Home</NavButton>
           </Link>
           <Link to="/signUp">
-            <NavButton theme={theme}>SignUp</NavButton>
+            <NavButton>SignUp</NavButton>
           </Link>
           <Link to="/login">
-            <NavButton theme={theme}>Login</NavButton>
+            <NavButton>Login</NavButton>
           </Link>
         </NavBar>
         <Switch>
@@ -98,17 +44,8 @@ const App = () => {
           <Route exact path="/signUp">
             <Signup />
           </Route>
-          <Route path="/userhome">
-            <div>
-              <h1>Hello User!</h1>
-              <GetMyLibraryInventory />
-              <BorrowForm
-                library={library}
-                setLibrary={setLibrary}
-                borrowCounter={setBorrowCounter}
-              />
-            </div>
-          </Route>
+
+          <Route path="/userhome" render={props => <UserView {...props} />} />
           <Route path="/login">
             <Login />
           </Route>
@@ -116,45 +53,28 @@ const App = () => {
             path="/inventories/:id"
             render={props => <DisplayInventory {...props} />}
           />
-          <Route path="/users">
-            <DisplayUser library={library} />
-          </Route>
+
           <Route path="/signup">
             <Signup />
           </Route>
           <Route path="/login">
-            <Login data={response.data} />
+            <Login />
           </Route>
           <Route path="/addbook">
             <AddBook />
           </Route>
-          <Route path="/borrow">
-            <BorrowForm
-              library={library}
-              setLibrary={setLibrary}
-              borrowCounter={setBorrowCounter}
-            />
-            <div>{borrowCounter}</div>
-            <ReturnBook
-              library={library}
-              setLibrary={setLibrary}
-              borrowCounter={setBorrowCounter}
-            />
-          </Route>
 
-          <Route path="/librarian">
-            <LibrarianView />
-          </Route>
+          <Route
+            path="/librarian"
+            render={props => <LibrarianView {...props} />}
+          />
 
-          <Route path="/libraries">
-            <DisplayAllLibraries data={response.data} />
-          </Route>
           <Redirect to="/" />
         </Switch>
       </div>
     </Router>
-  )
-}
+  );
+};
 
 // class App extends React.Component {
 //   constructor() {
@@ -300,4 +220,4 @@ const App = () => {
 // }
 // //Library property is passed through to Display Library Function
 
-export default App
+export default App;
