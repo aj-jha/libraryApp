@@ -21,10 +21,12 @@ const Login = () => {
         error
       }
     }
+
   `;
   const [login, { loading, error, data }] = useMutation(LOGIN_MUTATION);
   console.log(error);
   console.log(data);
+
 
   return (
     <div>
@@ -55,33 +57,34 @@ const Login = () => {
       >
         {fProps => {
           return (
-            <div>
+            <form onSubmit={fProps.handleSubmit}>
               <h1>Login</h1>
-              <form onSubmit={fProps.handleSubmit}>
-                <input
-                  name="email"
-                  type="text"
-                  value={fProps.values.email}
-                  onChange={fProps.handleChange}
-                  onBlur={fProps.onBlur}
-                />
-                {fProps.errors.email && fProps.touched.email && (
-                  <div>{fProps.errors.email}</div>
-                )}
-                <input
-                  name="password"
-                  type="password"
-                  value={fProps.values.password}
-                  onChange={fProps.handleChange}
-                  onBlur={fProps.onBlur}
-                />
-                {fProps.errors.password && fProps.touched.password && (
-                  <div>{fProps.errors.password}</div>
-                )}
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-          );
+
+              <input
+                name="email"
+                type="text"
+                placeholder="email"
+                value={fProps.values.email}
+                onChange={fProps.handleChange}
+                onBlur={fProps.handleBlur}
+              />
+              {fProps.errors.email && fProps.touched.email && (
+                <div>{fProps.errors.email}</div>
+              )}
+              <input
+                name="password"
+                type="password"
+                placeholder="password"
+                value={fProps.values.password}
+                onChange={fProps.handleChange}
+                onBlur={fProps.handleBlur}
+              />
+              {fProps.errors.password && fProps.touched.password && (
+                <div>{fProps.errors.password}</div>
+              )}
+              <button type="submit">Submit</button>
+            </form>
+          )
         }}
       </Formik>
       {loading && <div>Loading: {loading}</div>}
