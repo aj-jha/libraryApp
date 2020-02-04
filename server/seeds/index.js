@@ -1,8 +1,8 @@
-const { Pool } = require("pg")
+const { Pool } = require("pg");
 //object destructing functions that imports postgres package & imports Pool class
-const squel = require("squel").useFlavour("postgres")
+const squel = require("squel").useFlavour("postgres");
 // helps format inputs for postgres DB
-const config = require("../config/default.json")
+const config = require("../config/default.json");
 // imports default.json file from config folder
 
 const librarySeeds = [
@@ -15,7 +15,7 @@ const librarySeeds = [
     address: "2 Infinite Loop"
   }
   // adding more objects = more libraries in DB
-]
+];
 
 const bookSeeds = [
   {
@@ -33,7 +33,7 @@ const bookSeeds = [
     author: "Barack Yomama",
     library_id: 2
   }
-]
+];
 
 const userSeeds = [
   {
@@ -51,17 +51,17 @@ const userSeeds = [
   },
   {
     name: "Amber Zhao",
-    role: "User",
+    role: "user",
     email: "azhao@rbi.com",
     password: "$2a$12$2a97SIAV1.KY7yTTWkJ.Qu8J4XYN.0HIhQNc18TNzIxmhS08t2py."
   },
   {
     name: "AJ",
-    role: "User",
-    email: "AJ@AJ.com",
+    role: "user",
+    email: "aj@aj.com",
     password: "$2a$12$2a97SIAV1.KY7yTTWkJ.Qu8J4XYN.0HIhQNc18TNzIxmhS08t2py."
   }
-]
+];
 
 const libraries_usersSeed = [
   {
@@ -80,18 +80,18 @@ const libraries_usersSeed = [
     library_id: 1,
     user_id: 4
   }
-]
+];
 
 // seed = start DB & add in default values
 
 const seed = async () => {
-  const pg = await new Pool(config.db).connect()
+  const pg = await new Pool(config.db).connect();
   // when importing into database, use try's to ensure if error occurs, previous operations are undone.
 
   try {
-    await pg.query("BEGIN")
+    await pg.query("BEGIN");
 
-    console.log("Seeding Libraries...")
+    console.log("Seeding Libraries...");
 
     Promise.all(
       librarySeeds.map(librarySeeds => {
@@ -101,13 +101,13 @@ const seed = async () => {
             .into("libraryapp.libraries")
             .setFields(librarySeeds)
             .toParam()
-        )
+        );
       })
-    )
+    );
 
-    console.log("Seeding Libraries Completed")
+    console.log("Seeding Libraries Completed");
 
-    console.log("Seeding Users...")
+    console.log("Seeding Users...");
 
     Promise.all(
       userSeeds.map(userSeeds => {
@@ -117,13 +117,13 @@ const seed = async () => {
             .into("libraryapp.users")
             .setFields(userSeeds)
             .toParam()
-        )
+        );
       })
-    )
+    );
 
-    console.log("Seeding Users Completed")
+    console.log("Seeding Users Completed");
 
-    console.log("Seeding Books...")
+    console.log("Seeding Books...");
 
     Promise.all(
       bookSeeds.map(bookSeeds => {
@@ -133,11 +133,11 @@ const seed = async () => {
             .into("libraryapp.books")
             .setFields(bookSeeds)
             .toParam()
-        )
+        );
       })
-    )
+    );
 
-    console.log("Seeding Library_Users")
+    console.log("Seeding Library_Users");
 
     Promise.all(
       libraries_usersSeed.map(libraries_usersSeed => {
@@ -147,25 +147,25 @@ const seed = async () => {
             .into("libraryapp.libraries_users")
             .setFields(libraries_usersSeed)
             .toParam()
-        )
+        );
       })
-    )
+    );
 
-    console.log("Seeding Library_Users Completed")
+    console.log("Seeding Library_Users Completed");
 
-    await pg.query("COMMIT")
+    await pg.query("COMMIT");
   } catch (e) {
-    await pg.query("ROLLBACK")
-    throw e
+    await pg.query("ROLLBACK");
+    throw e;
   } finally {
-    pg.release()
+    pg.release();
   }
   // catch executes when errors occur, stores error in (e), and tells Postgres to "ROLLBACK" previous changes + throw e -> displays error
   // finally always executes
-}
+};
 
 seed().catch(e => {
   setImmediate(() => {
-    throw e
-  })
-})
+    throw e;
+  });
+});

@@ -3,12 +3,13 @@ import { Formik } from "formik";
 import { useMutation } from "react-apollo-hooks";
 import * as Yup from "yup";
 import gql from "graphql-tag";
+import GetMyLibraryInventory from "./GetMyLibraryInventory";
 
-const ReturnBook = () => {
+const BorrowBook = () => {
   // $signup is the input for the GQL mutation. It is an object that is passed to the mutation to provide input values for the signup function. Its a good idea to ensure the name of variables storing the value from the input form matches the required input in the schema
-  const RETURNBOOK_MUTATION = gql`
+  const BORROWBOOK_MUTATION = gql`
     mutation($book_id: ID!) {
-      returnBook(book_id: $book_id) {
+      borrowBook(book_id: $book_id) {
         book {
           id
           title
@@ -20,20 +21,35 @@ const ReturnBook = () => {
     }
   `;
 
+  const GET_MYLIBRARY_INVENTORY = gql`
+    query {
+      getMyLibraryInventory {
+        id
+        title
+        author
+        status
+        library {
+          id
+        }
+      }
+    }
+  `;
+
   // data stores the return variable fromt the GQL query results.
-  const [returnBook, { loading, error, data }] = useMutation(
-    RETURNBOOK_MUTATION,
+  const [borrowBook, { loading, error, data }] = useMutation(
+    BORROWBOOK_MUTATION,
     {
-      update(cache, { data: { ReturnBook } }) {
-        const { book } = cache.readQuery({ query: RETURNBOOK_MUTATION });
+      update(cache, { data: { BorrowBook } }) {
+        const { book } = cache.readQuery({ query: GET_MYLIBRARY_INVENTORY });
         cache.writeQuery({
-          query: RETURNBOOK_MUTATION,
-          data: { book: book.concat([ReturnBook]) }
+          query: GET_MYLIBRARY_INVENTORY,
+          data: { book: book.concat([BorrowBook]) }
         });
       }
     }
   );
   console.log(data);
+  // console.log(error);
   return (
     <div>
       <Formik
@@ -48,7 +64,7 @@ const ReturnBook = () => {
           // this catches all values fromt the formik form.
           { setSubmitting }
         ) => {
-          returnBook({
+          borrowBook({
             variables: {
               book_id: values.book_id
             }
@@ -62,12 +78,12 @@ const ReturnBook = () => {
         {fProps => {
           return (
             <div>
-              <h1>RETURN BOOK</h1>
+              <h1>BORROW BOOK</h1>
               <form onSubmit={fProps.handleSubmit}>
                 <input
                   name="book_id"
-                  type="number"
-                  value={fProps.values.title}
+                  type="Number"
+                  value={fProps.values.book_id}
                   onChange={fProps.handleChange}
                   onBlur={fProps.onBlur}
                 />
@@ -84,14 +100,15 @@ const ReturnBook = () => {
       {error && <div>Error: {error}</div>}
       {data && (
         <div>
-          {data.returnBook.error && <div>Error: {data.returnBook.error}</div>}
-          {data.returnBook.book && (
-            <div>{data.returnBook.book.title} has been returned!</div>
+          {data.borrowBook.error && <div>Error: {data.borrowBook.error}</div>}
+          {data.borrowBook.book && (
+            <div>{data.borrowBook.book.title} has been borrowed!</div>
           )}
         </div>
       )}
+      <div />
     </div>
   );
 };
 
-export default ReturnBook;
+export default BorrowBook;
