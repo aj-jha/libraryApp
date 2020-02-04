@@ -2,7 +2,13 @@ import React, { useState } from "react"
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
 import { useQuery } from "react-apollo-hooks"
 import gql from "graphql-tag"
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom"
 
 import "./App.css"
 import DisplayInventory from "./components/DisplayInventory"
@@ -16,6 +22,8 @@ import Login from "./components/LoginForm"
 import GetMyLibraryInventory from "./components/GetMyLibraryInventory"
 import LibrarianView from "./components/LibrarianView"
 import NavButton from "./components/styledComponents/NavButton"
+import NavBar from "./components/styledComponents/NavBar"
+import HomeView from "./components/HomeView"
 
 const App = () => {
   const GET_LIBRARIES_QUERY = gql`
@@ -72,7 +80,7 @@ const App = () => {
     <Router>
       <div>
         {/* <button onClick={changeTheme}>Change Theme</button> */}
-        <div>
+        <NavBar>
           <Link to="/">
             <NavButton theme={theme}>Home</NavButton>
           </Link>
@@ -82,8 +90,11 @@ const App = () => {
           <Link to="/login">
             <NavButton theme={theme}>Login</NavButton>
           </Link>
-        </div>
+        </NavBar>
         <Switch>
+          <Route exact path="/">
+            <HomeView />
+          </Route>
           <Route exact path="/signUp">
             <Signup />
           </Route>
@@ -101,7 +112,10 @@ const App = () => {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/inventories/:id" render={props => <DisplayInventory {...props} />} />
+          <Route
+            path="/inventories/:id"
+            render={props => <DisplayInventory {...props} />}
+          />
           <Route path="/users">
             <DisplayUser library={library} />
           </Route>

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components"
 
-const SignupButton = styled.button`
+const NavButton = styled.button`
 display: flex;
 flex-direction:column;
 
@@ -25,4 +25,4 @@ flex-direction:column;
 //     background: black;
 //     color: white;
 //   `}
-export default SignupButton
+export default NavButton
