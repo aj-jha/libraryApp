@@ -1,8 +1,8 @@
-import React from "react";
-import { Formik } from "formik";
-import { useMutation } from "react-apollo-hooks";
-import * as Yup from "yup";
-import gql from "graphql-tag";
+import React from "react"
+import { Formik } from "formik"
+import { useMutation } from "react-apollo-hooks"
+import * as Yup from "yup"
+import gql from "graphql-tag"
 
 const ReturnBook = () => {
   // $signup is the input for the GQL mutation. It is an object that is passed to the mutation to provide input values for the signup function. Its a good idea to ensure the name of variables storing the value from the input form matches the required input in the schema
@@ -19,7 +19,7 @@ const ReturnBook = () => {
         }
       }
     }
-  `;
+  `
 
   const RETURNBOOK_MUTATION = gql`
     mutation($book_id: ID!) {
@@ -33,27 +33,27 @@ const ReturnBook = () => {
         error
       }
     }
-  `;
+  `
 
   // data stores the return variable fromt the GQL query results.
   const [returnBook, { loading, error, data }] = useMutation(
     RETURNBOOK_MUTATION,
     {
       update(cache, { data: { ReturnBook } }) {
-        const { book } = cache.readQuery({ query: GET_MYLIBRARY_INVENTORY });
+        const { book } = cache.readQuery({ query: GET_MYLIBRARY_INVENTORY })
         cache.writeQuery({
           query: GET_MYLIBRARY_INVENTORY,
           data: { book: book.concat([ReturnBook]) }
-        });
+        })
       }
     }
-  );
-  console.log(data);
+  )
+  console.log(data)
   return (
     <div>
       <Formik
         initialValues={{
-          book_id: 0
+          book_id: ""
         }}
         validationSchema={Yup.object().shape({
           book_id: Yup.number().required()
@@ -67,11 +67,11 @@ const ReturnBook = () => {
             variables: {
               book_id: values.book_id
             }
-          });
+          })
           // variables (Defined by apollo hooks) stores input variable from the form or input values
           // signup matches the required variable input name in the GQL query
           // if not named the same, you need to do signup: {name: values.notmatchedname}
-          setSubmitting(false);
+          setSubmitting(false)
         }}
       >
         {fProps => {
@@ -82,6 +82,7 @@ const ReturnBook = () => {
                 <input
                   name="book_id"
                   type="number"
+                  placeholder="book ID"
                   value={fProps.values.title}
                   onChange={fProps.handleChange}
                   onBlur={fProps.onBlur}
@@ -92,7 +93,7 @@ const ReturnBook = () => {
                 <button type="submit">Submit</button>
               </form>
             </div>
-          );
+          )
         }}
       </Formik>
       {loading && <div>Loading: {loading}</div>}
@@ -106,7 +107,7 @@ const ReturnBook = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ReturnBook;
+export default ReturnBook

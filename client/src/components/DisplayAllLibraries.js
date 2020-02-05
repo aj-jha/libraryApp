@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { useQuery } from "react-apollo-hooks";
-import gql from "graphql-tag";
+import React, { useState } from "react"
+import { useQuery } from "react-apollo-hooks"
+import gql from "graphql-tag"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect
-} from "react-router-dom";
+} from "react-router-dom"
+import DisplayInventory from "./DisplayInventory"
 
 const DisplayAllLibraries = () => {
+  //setting state of display inventory to nothing upon first page load
+  const [cur_lib, setCurLib] = useState(null)
   const GET_LIBRARIES_QUERY = gql`
     query {
       getAllLibraries {
@@ -19,23 +22,26 @@ const DisplayAllLibraries = () => {
         address
       }
     }
-  `;
-  const response = useQuery(GET_LIBRARIES_QUERY);
+  `
+  const handleClick = id => {
+    setCurLib(id)
+  }
+  const response = useQuery(GET_LIBRARIES_QUERY)
   if (response.loading) {
-    return <div>Loading</div>;
+    return <div>Loading</div>
   }
 
   if (response.error) {
-    return <div>{response.error}</div>;
+    return <div>{response.error}</div>
   }
-  console.log(response);
+  console.log(response)
 
   return (
     <div>
       <table>
         <tr>
           {Object.keys(response.data.getAllLibraries[0]).map(key => {
-            return <th>{key}</th>;
+            return <th>{key}</th>
           })}
         </tr>
         {response.data.getAllLibraries.map(library => {
@@ -45,17 +51,20 @@ const DisplayAllLibraries = () => {
           return (
             <tr>
               {Object.values(library).map(value => {
-                return <td>{value}</td>;
+                return <td>{value}</td>
               })}
               <td>
-                <Link to={`/inventories/${library.id}`}>Display Inventory</Link>
+                <button onClick={() => handleClick(library.id)}>
+                  Display Inventory
+                </button>
               </td>
             </tr>
-          );
+          )
         })}
       </table>
+      {cur_lib && <DisplayInventory id={cur_lib} />}
     </div>
-  );
-};
+  )
+}
 
-export default DisplayAllLibraries;
+export default DisplayAllLibraries
