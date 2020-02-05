@@ -14,6 +14,9 @@ const AddBook = () => {
           title
           author
           id
+          library {
+            id
+          }
         }
       }
     }
@@ -24,79 +27,94 @@ const AddBook = () => {
   // console.log(data)
   // console.log(error)
   return (
-    <Formik
-      initialValues={{
-        title: "",
-        author: "",
-        library_id: ""
-      }}
-      validationSchema={Yup.object().shape({
-        title: Yup.string().required(),
-        author: Yup.string().required(),
-        library_id: Yup.number().required()
-      })}
-      onSubmit={(
-        values,
-        // this catches all values fromt the formik form.
-        { setSubmitting }
-      ) => {
-        addBook({
-          variables: {
-            title: values.title,
-            author: values.author,
-            library_id: values.library_id
-          }
-        })
-        // variables (Defined by apollo hooks) stores input variable from the form or input values
-        // signup matches the required variable input name in the GQL query
-        // if not named the same, you need to do signup: {name: values.notmatchedname}
-        setSubmitting(false)
-      }}
-    >
-      {fProps => {
-        return (
-          <div>
-            <h1>ADD BOOK</h1>
-            <form onSubmit={fProps.handleSubmit}>
-              <input
-                name="title"
-                type="text"
-                placeholder="title"
-                value={fProps.values.title}
-                onChange={fProps.handleChange}
-                onBlur={fProps.onBlur}
-              />
-              {fProps.errors.title && fProps.touched.title && (
-                <div>{fProps.errors.title}</div>
-              )}
-              <input
-                name="author"
-                type="text"
-                placeholder="author"
-                value={fProps.values.author}
-                onChange={fProps.handleChange}
-                onBlur={fProps.onBlur}
-              />
-              {fProps.errors.author && fProps.touched.author && (
-                <div>{fProps.errors.author}</div>
-              )}
-              <input
-                name="library_id"
-                type="number"
-                placeholder="library ID"
-                value={fProps.values.library_id}
-                onChange={fProps.handleChange}
-                onBlur={fProps.onBlur}
-              />
-              {fProps.errors.library_id && fProps.touched.library_id && (
-                <div>{fProps.errors.library_id}</div>
-              )}
-              <button type="submit">Submit</button>
-            </form>
-          </div>
-        )
-      }}
-    </Formik>
+    <div>
+      <Formik
+        initialValues={{
+          title: "",
+          author: "",
+          library_id: ""
+        }}
+        validationSchema={Yup.object().shape({
+          title: Yup.string().required(),
+          author: Yup.string().required(),
+          library_id: Yup.number().required()
+        })}
+        onSubmit={(
+          values,
+          // this catches all values fromt the formik form.
+          { setSubmitting }
+        ) => {
+          addBook({
+            variables: {
+              title: values.title,
+              author: values.author,
+              library_id: values.library_id
+            }
+          })
+          // variables (Defined by apollo hooks) stores input variable from the form or input values
+          // signup matches the required variable input name in the GQL query
+          // if not named the same, you need to do signup: {name: values.notmatchedname}
+          setSubmitting(false)
+        }}
+      >
+        {fProps => {
+          return (
+            <div>
+              <h1>ADD BOOK</h1>
+              <form onSubmit={fProps.handleSubmit}>
+                <input
+                  name="title"
+                  type="text"
+                  placeholder="title"
+                  value={fProps.values.title}
+                  onChange={fProps.handleChange}
+                  onBlur={fProps.onBlur}
+                />
+                {fProps.errors.title && fProps.touched.title && (
+                  <div>{fProps.errors.title}</div>
+                )}
+                <input
+                  name="author"
+                  type="text"
+                  placeholder="author"
+                  value={fProps.values.author}
+                  onChange={fProps.handleChange}
+                  onBlur={fProps.onBlur}
+                />
+                {fProps.errors.author && fProps.touched.author && (
+                  <div>{fProps.errors.author}</div>
+                )}
+                <input
+                  name="library_id"
+                  type="number"
+                  placeholder="library ID"
+                  value={fProps.values.library_id}
+                  onChange={fProps.handleChange}
+                  onBlur={fProps.onBlur}
+                />
+                {fProps.errors.library_id && fProps.touched.library_id && (
+                  <div>{fProps.errors.library_id}</div>
+                )}
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+          )
+        }}
+      </Formik>
+      {loading && <div>Loading...</div>}
+      {error && console.log(error)}
+      {data && (
+        <div>
+          {data.addBook.error && <div>Error: {data.borrowBook.error}</div>}
+          {data.addBook.book && (
+            <div>
+              {data.addBook.book.title} has been added to library{" "}
+              {data.addBook.book.library.id}!
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   )
 }
 

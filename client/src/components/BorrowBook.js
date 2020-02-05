@@ -88,17 +88,17 @@ const BorrowBook = () => {
                   onChange={fProps.handleChange}
                   onBlur={fProps.onBlur}
                 />
-                {fProps.errors.book_id && fProps.touched.book_id && (
-                  <div>{fProps.errors.book_id}</div>
-                )}
                 <button type="submit">Submit</button>
               </form>
+              {fProps.errors.book_id && fProps.touched.book_id && (
+                <div>{fProps.errors.book_id}</div>
+              )}
             </div>
           )
         }}
       </Formik>
-      {loading && <div>Loading: {loading}</div>}
-      {error && <div>Error: {error}</div>}
+      {loading && <div>Loading...</div>}
+      {error && console.log(error)}
       {data && (
         <div>
           {data.borrowBook.error && <div>Error: {data.borrowBook.error}</div>}
