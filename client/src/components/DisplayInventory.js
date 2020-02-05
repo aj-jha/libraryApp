@@ -23,7 +23,7 @@ const DisplayInventory = props => {
     }
   `
   const { loading, error, data } = useQuery(GET_INVENTORY, {
-    variables: { libraryID: props.match.params.id }
+    variables: { libraryID: props.id }
   })
 
   if (loading) {
