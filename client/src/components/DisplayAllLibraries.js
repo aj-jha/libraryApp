@@ -1,14 +1,10 @@
-import React, { useState } from "react"
-import { useQuery } from "react-apollo-hooks"
-import gql from "graphql-tag"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom"
+
+import React from "react";
+import { useQuery } from "react-apollo-hooks";
+import gql from "graphql-tag";
+import { Link } from "react-router-dom";
 import DisplayInventory from "./DisplayInventory"
+
 
 const DisplayAllLibraries = () => {
   //setting state of display inventory to nothing upon first page load

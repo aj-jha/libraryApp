@@ -85,14 +85,17 @@ const Login = () => {
         }}
       </Formik>
       {loading && <div>Loading: {loading}</div>}
-
       {error && <div>Error: {error}</div>}
       {data &&
         (!data.login.user ? (
-          <div>User not found</div>
+          <div>
+            {console.log(data.login.error)}
+            Email or Password is incorrect. Please Contact Katherine MCT for
+            further assistance
+          </div>
         ) : (
           <div>
-            {data.login.user.role == "librarian" ? (
+            {data.login.user.role === "librarian" ? (
               <Redirect
                 to={{
                   pathname: "/librarian",
