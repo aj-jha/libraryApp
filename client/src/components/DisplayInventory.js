@@ -40,22 +40,24 @@ const DisplayInventory = props => {
       {!data.getInventory[0] ? (
         <div>There are no books in this library</div>
       ) : (
-        <BooksOrPeopleTable>
-          <section>
-            <div>{Object.keys(data.getInventory[0])[0]}</div>
-            <div>{Object.keys(data.getInventory[0])[1]}</div>
-            <div>{Object.keys(data.getInventory[0])[2]}</div>
-          </section>
-          {data.getInventory.map(book => {
-            return (
-              <div>
-                <div>{book.id}</div>
-                <div>{book.title}</div>
-                <div>{book.author}</div>
-              </div>
-            )
-          })}
-        </BooksOrPeopleTable>
+        <div>
+          <BooksOrPeopleTable>
+            <section>
+              <div>{Object.keys(data.getInventory[0])[0]}</div>
+              <div>{Object.keys(data.getInventory[0])[1]}</div>
+              <div>{Object.keys(data.getInventory[0])[2]}</div>
+            </section>
+            {data.getInventory.map(book => {
+              return (
+                <div>
+                  <div>{book.id}</div>
+                  <div>{book.title}</div>
+                  <div>{book.author}</div>
+                </div>
+              )
+            })}
+          </BooksOrPeopleTable>
+        </div>
       )}
     </div>
   )
