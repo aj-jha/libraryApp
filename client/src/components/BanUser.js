@@ -1,8 +1,8 @@
-import React from "react";
-import { Formik } from "formik";
-import { useMutation } from "react-apollo-hooks";
-import * as Yup from "yup";
-import gql from "graphql-tag";
+import React from "react"
+import { Formik } from "formik"
+import { useMutation } from "react-apollo-hooks"
+import * as Yup from "yup"
+import gql from "graphql-tag"
 
 const BanUser = () => {
   const BANUSER_MUTATION = gql`
@@ -16,17 +16,17 @@ const BanUser = () => {
         error
       }
     }
-  `;
+  `
 
-  const [banUser, { loading, error, data }] = useMutation(BANUSER_MUTATION);
+  const [banUser, { loading, error, data }] = useMutation(BANUSER_MUTATION)
 
-  console.log(data);
+  console.log(data)
 
   return (
     <div>
       <Formik
         initialValues={{
-          id: 0
+          id: ""
         }}
         validationSchema={Yup.object().shape({
           id: Yup.number().required()
@@ -36,8 +36,8 @@ const BanUser = () => {
             variables: {
               id: values.id
             }
-          });
-          setSubmitting(false);
+          })
+          setSubmitting(false)
         }}
       >
         {fProps => {
@@ -48,9 +48,10 @@ const BanUser = () => {
                 <input
                   name="id"
                   type="Number"
+                  placeholder="user ID"
                   value={fProps.values.id}
                   onChange={fProps.handleChange}
-                  onBlur={fProps.onBlur}
+                  onBlur={fProps.handleBlur}
                 />
                 {fProps.errors.id && fProps.touched.id && (
                   <div>{fProps.errors.id}</div>
@@ -58,7 +59,7 @@ const BanUser = () => {
                 <button type="submit">Submit</button>
               </form>
             </div>
-          );
+          )
         }}
       </Formik>
       {loading && <div>Loading: {loading}</div>}
@@ -75,7 +76,7 @@ const BanUser = () => {
           <div>{data.banUser.user.name} has been unbanned</div>
         ))}
     </div>
-  );
-};
+  )
+}
 
-export default BanUser;
+export default BanUser

@@ -39,15 +39,17 @@ const BorrowBook = () => {
     BORROWBOOK_MUTATION,
     {
       update(cache, { data: { BorrowBook } }) {
-        const { book } = cache.readQuery({ query: GET_MYLIBRARY_INVENTORY })
-        cache.writeQuery({
-          query: GET_MYLIBRARY_INVENTORY,
-          data: { book: book.concat([BorrowBook]) }
-        })
+        console.log(BorrowBook)
+        if (BorrowBook) {
+          const { book } = cache.readQuery({ query: GET_MYLIBRARY_INVENTORY })
+          cache.writeQuery({
+            query: GET_MYLIBRARY_INVENTORY,
+            data: { book: book.concat([BorrowBook]) }
+          })
+        }
       }
     }
   )
-  console.log(data)
   // console.log(error);
   return (
     <div>
@@ -85,7 +87,7 @@ const BorrowBook = () => {
                   placeholder="book ID"
                   value={fProps.values.book_id}
                   onChange={fProps.handleChange}
-                  onBlur={fProps.onBlur}
+                  onBlur={fProps.handleBlur}
                 />
                 <button type="submit">Submit</button>
               </form>
@@ -100,6 +102,7 @@ const BorrowBook = () => {
       {error && console.log(error)}
       {data && (
         <div>
+          {console.log(data)}
           {data.borrowBook.error && <div>Error: {data.borrowBook.error}</div>}
           {data.borrowBook.book && (
             <div>{data.borrowBook.book.title} has been borrowed!</div>
