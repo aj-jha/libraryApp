@@ -21,8 +21,8 @@ const AddBook = () => {
 
   // data stores the return variable fromt the GQL query results.
   const [addBook, { loading, error, data }] = useMutation(ADDBOOK_MUTATION)
-  console.log(data)
-  console.log(error)
+  // console.log(data)
+  // console.log(error)
   return (
     <Formik
       initialValues={{
