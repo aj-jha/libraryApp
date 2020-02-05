@@ -21,12 +21,10 @@ const Login = () => {
         error
       }
     }
-
   `;
   const [login, { loading, error, data }] = useMutation(LOGIN_MUTATION);
   console.log(error);
   console.log(data);
-
 
   return (
     <div>
@@ -84,11 +82,11 @@ const Login = () => {
               )}
               <button type="submit">Submit</button>
             </form>
-          )
+          );
         }}
       </Formik>
       {loading && <div>Loading: {loading}</div>}
-      {error && <div>Error: {error}</div>}
+      {error && <div>Error: {console.log(error)}</div>}
       {data && (
         <div>
           {data.login.user.role == "librarian" ? (
