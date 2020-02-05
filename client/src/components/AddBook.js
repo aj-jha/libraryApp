@@ -1,8 +1,8 @@
-import React from "react";
-import { Formik } from "formik";
-import { useMutation } from "react-apollo-hooks";
-import * as Yup from "yup";
-import gql from "graphql-tag";
+import React from "react"
+import { Formik } from "formik"
+import { useMutation } from "react-apollo-hooks"
+import * as Yup from "yup"
+import gql from "graphql-tag"
 
 const AddBook = () => {
   // $signup is the input for the GQL mutation. It is an object that is passed to the mutation to provide input values for the signup function. Its a good idea to ensure the name of variables storing the value from the input form matches the required input in the schema
@@ -20,14 +20,13 @@ const AddBook = () => {
         }
       }
     }
-  `;
+  `
 
   // data stores the return variable fromt the GQL query results.
-  const [addBook] = useMutation(ADDBOOK_MUTATION);
+  const [addBook, { loading, error, data }] = useMutation(ADDBOOK_MUTATION)
   // console.log(data)
   // console.log(error)
   return (
-
     <div>
       <Formik
         initialValues={{
@@ -119,4 +118,4 @@ const AddBook = () => {
   )
 }
 
-export default AddBook;
+export default AddBook
