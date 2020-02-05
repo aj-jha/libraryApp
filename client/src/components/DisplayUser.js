@@ -1,6 +1,6 @@
-import React from "react";
-import { useQuery } from "react-apollo-hooks";
-import gql from "graphql-tag";
+import React from "react"
+import { useQuery } from "react-apollo-hooks"
+import gql from "graphql-tag"
 
 const DisplayUser = () => {
   const GET_USERS = gql`
@@ -15,21 +15,33 @@ const DisplayUser = () => {
         }
       }
     }
-  `;
-  const { loading, error, data } = useQuery(GET_USERS);
+  `
+  const { loading, error, data } = useQuery(GET_USERS)
 
   if (loading) {
-    return <div>Loading</div>;
+    return <div>Loading</div>
   }
 
   if (error) {
-    console.log(error);
+    console.log(error)
   }
-  console.log(data);
+  console.log(data)
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          fontWeight: "bold"
+        }}
+      >
+        <div>{Object.keys(data.getUsers[0])[0]}</div>
+        <div>{Object.keys(data.getUsers[0])[1]}</div>
+        <div>{Object.keys(data.getUsers[0])[2]}</div>
+      </div>
       {data.getUsers.map(user => {
-        console.log(user);
+        // console.log(user);
         return (
           <div style={{ display: "flex", justifyContent: "space-around" }}>
             <div>{user.id}</div>
@@ -42,10 +54,10 @@ const DisplayUser = () => {
               {user.borrowedBooks.name == null ? "" : user.borrowedBooks.name}
             </div>
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default DisplayUser;
+export default DisplayUser
