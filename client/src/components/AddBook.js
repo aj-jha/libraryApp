@@ -28,7 +28,7 @@ const AddBook = () => {
       initialValues={{
         title: "",
         author: "",
-        library_id: 0
+        library_id: ""
       }}
       validationSchema={Yup.object().shape({
         title: Yup.string().required(),

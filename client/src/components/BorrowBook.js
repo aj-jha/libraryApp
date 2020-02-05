@@ -1,9 +1,9 @@
-import React from "react";
-import { Formik } from "formik";
-import { useMutation } from "react-apollo-hooks";
-import * as Yup from "yup";
-import gql from "graphql-tag";
-import GetMyLibraryInventory from "./GetMyLibraryInventory";
+import React from "react"
+import { Formik } from "formik"
+import { useMutation } from "react-apollo-hooks"
+import * as Yup from "yup"
+import gql from "graphql-tag"
+import GetMyLibraryInventory from "./GetMyLibraryInventory"
 
 const BorrowBook = () => {
   // $signup is the input for the GQL mutation. It is an object that is passed to the mutation to provide input values for the signup function. Its a good idea to ensure the name of variables storing the value from the input form matches the required input in the schema
@@ -19,7 +19,7 @@ const BorrowBook = () => {
         error
       }
     }
-  `;
+  `
 
   const GET_MYLIBRARY_INVENTORY = gql`
     query {
@@ -33,28 +33,28 @@ const BorrowBook = () => {
         }
       }
     }
-  `;
+  `
 
   // data stores the return variable fromt the GQL query results.
   const [borrowBook, { loading, error, data }] = useMutation(
     BORROWBOOK_MUTATION,
     {
       update(cache, { data: { BorrowBook } }) {
-        const { book } = cache.readQuery({ query: GET_MYLIBRARY_INVENTORY });
+        const { book } = cache.readQuery({ query: GET_MYLIBRARY_INVENTORY })
         cache.writeQuery({
           query: GET_MYLIBRARY_INVENTORY,
           data: { book: book.concat([BorrowBook]) }
-        });
+        })
       }
     }
-  );
-  console.log(data);
+  )
+  console.log(data)
   // console.log(error);
   return (
     <div>
       <Formik
         initialValues={{
-          book_id: 0
+          book_id: ""
         }}
         validationSchema={Yup.object().shape({
           book_id: Yup.number().required()
@@ -68,11 +68,11 @@ const BorrowBook = () => {
             variables: {
               book_id: values.book_id
             }
-          });
+          })
           // variables (Defined by apollo hooks) stores input variable from the form or input values
           // signup matches the required variable input name in the GQL query
           // if not named the same, you need to do signup: {name: values.notmatchedname}
-          setSubmitting(false);
+          setSubmitting(false)
         }}
       >
         {fProps => {
@@ -83,6 +83,7 @@ const BorrowBook = () => {
                 <input
                   name="book_id"
                   type="Number"
+                  placeholder="book ID"
                   value={fProps.values.book_id}
                   onChange={fProps.handleChange}
                   onBlur={fProps.onBlur}
@@ -93,7 +94,7 @@ const BorrowBook = () => {
                 <button type="submit">Submit</button>
               </form>
             </div>
-          );
+          )
         }}
       </Formik>
       {loading && <div>Loading: {loading}</div>}
@@ -106,9 +107,8 @@ const BorrowBook = () => {
           )}
         </div>
       )}
-      <div />
     </div>
-  );
-};
+  )
+}
 
-export default BorrowBook;
+export default BorrowBook
