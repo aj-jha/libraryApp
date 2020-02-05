@@ -1,13 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "react-apollo-hooks";
 import gql from "graphql-tag";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const DisplayAllLibraries = () => {
   const GET_LIBRARIES_QUERY = gql`

@@ -3,7 +3,8 @@ import AddBook from "./AddBook";
 import DisplayAllLibraries from "./DisplayAllLibraries";
 import DisplayUser from "./DisplayUser";
 import DisplayInventory from "./DisplayInventory";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
+import BanUser from "./BanUser";
 
 const LibrarianView = props => {
   return (
@@ -16,6 +17,7 @@ const LibrarianView = props => {
       />
       <DisplayUser />
       <AddBook />
+      <BanUser />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
 
 import {
@@ -7,7 +7,6 @@ import {
   Route,
   Link,
   Redirect
-
 } from "react-router-dom";
 
 import "./App.css";
@@ -18,9 +17,8 @@ import Login from "./components/LoginForm";
 import LibrarianView from "./components/LibrarianView";
 import NavButton from "./components/styledComponents/NavButton";
 import UserView from "./components/UserView";
-import NavBar from "./components/styledComponents/NavBar"
-import HomeView from "./components/HomeView"
-
+import NavBar from "./components/styledComponents/NavBar";
+import HomeView from "./components/HomeView";
 
 const App = () => {
   return (
