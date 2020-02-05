@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components"
 const NavBar = styled.div`
-  position: absolute;
+  display: flex;
+  justify-content: center;
   top: 0;
   left: 0;
 `
