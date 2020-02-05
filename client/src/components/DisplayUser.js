@@ -1,6 +1,7 @@
 import React from "react"
 import { useQuery } from "react-apollo-hooks"
 import gql from "graphql-tag"
+import BooksInLibrary from "./styledComponents/BooksOrPeopleTable"
 
 const DisplayUser = () => {
   const GET_USERS = gql`
@@ -32,8 +33,9 @@ const DisplayUser = () => {
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-around",
-          fontWeight: "bold"
+          justifyContent: "space-between",
+          fontWeight: "bold",
+          margin: "15px"
         }}
       >
         <div>{Object.keys(data.getUsers[0])[0]}</div>
@@ -43,7 +45,8 @@ const DisplayUser = () => {
       {data.getUsers.map(user => {
         // console.log(user);
         return (
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
+          // <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <BooksInLibrary>
             <div>{user.id}</div>
             <div>{user.name}</div>
             <div>{user.role}</div>
@@ -53,7 +56,8 @@ const DisplayUser = () => {
             <div>
               {user.borrowedBooks.name == null ? "" : user.borrowedBooks.name}
             </div>
-          </div>
+          </BooksInLibrary>
+          // </div>
         )
       })}
     </div>

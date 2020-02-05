@@ -1,6 +1,7 @@
-import React from "react";
-import { useQuery } from "react-apollo-hooks";
-import gql from "graphql-tag";
+import React from "react"
+import { useQuery } from "react-apollo-hooks"
+import gql from "graphql-tag"
+import BooksInLibrary from "./styledComponents/BooksOrPeopleTable"
 
 const GetMyLibraryInventory = props => {
   const GET_MYLIBRARY_INVENTORY = gql`
@@ -15,31 +16,31 @@ const GetMyLibraryInventory = props => {
         }
       }
     }
-  `;
-  const { loading, error, data } = useQuery(GET_MYLIBRARY_INVENTORY);
+  `
+  const { loading, error, data } = useQuery(GET_MYLIBRARY_INVENTORY)
 
   if (loading) {
-    return <div>Loading</div>;
+    return <div>Loading</div>
   }
 
   if (error) {
-    console.log(error);
+    console.log(error)
   }
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+    <div>
       {data.getMyLibraryInventory.map(book => {
-        console.log(book);
+        console.log(book)
         return (
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <BooksInLibrary>
             <div>{book.id}</div>
             <div>{book.title}</div>
             <div>{book.author}</div>
             <div>{book.status}</div>
             <div>{book.borrower == null ? "" : book.borrower.name}</div>
-          </div>
-        );
+          </BooksInLibrary>
+        )
       })}
     </div>
-  );
-};
-export default GetMyLibraryInventory;
+  )
+}
+export default GetMyLibraryInventory

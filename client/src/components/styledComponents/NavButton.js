@@ -1,17 +1,18 @@
 import styled, { css } from "styled-components"
 
 const NavButton = styled.button`
-display: flex;
-flex-direction:column;
-
-  width: 75px;
+  display: flex;
+  justify-content: center;
+  width: 105px;
   font-size: 16px;
   color: white;
   border-radius: 12px;
   background-color: gray;
-  &:hover{color:#03bafc}
-
+  &:hover {
+    color: #03bafc;
   }
+  text-decoration: none;
+  margin: 5px;
 `
 // ${props =>
 //   props.theme == "light" &&
