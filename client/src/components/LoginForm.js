@@ -23,9 +23,8 @@ const Login = () => {
     }
   `;
   const [login, { loading, error, data }] = useMutation(LOGIN_MUTATION);
-  console.log(error);
-  console.log(data);
-
+  // console.log(error);
+  // console.log(data);
   return (
     <div>
       <Formik
@@ -86,26 +85,30 @@ const Login = () => {
         }}
       </Formik>
       {loading && <div>Loading: {loading}</div>}
-      {error && <div>Error: {console.log(error)}</div>}
-      {data && (
-        <div>
-          {data.login.user.role == "librarian" ? (
-            <Redirect
-              to={{
-                pathname: "/librarian",
-                state: { name: data.login.user.name, id: data.login.user.id }
-              }}
-            />
-          ) : (
-            <Redirect
-              to={{
-                pathname: "/userhome",
-                state: { name: data.login.user.name, id: data.login.user.id }
-              }}
-            />
-          )}
-        </div>
-      )}
+
+      {error && <div>Error: {error}</div>}
+      {data &&
+        (!data.login.user ? (
+          <div>User not found</div>
+        ) : (
+          <div>
+            {data.login.user.role == "librarian" ? (
+              <Redirect
+                to={{
+                  pathname: "/librarian",
+                  state: { name: data.login.user.name, id: data.login.user.id }
+                }}
+              />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/userhome",
+                  state: { name: data.login.user.name, id: data.login.user.id }
+                }}
+              />
+            )}
+          </div>
+        ))}
     </div>
   );
 };
