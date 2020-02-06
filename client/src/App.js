@@ -80,6 +80,8 @@ const App = () => {
   )
 }
 
+export default App
+
 // class App extends React.Component {
 //   constructor() {
 //     super();
@@ -224,4 +226,6 @@ const App = () => {
 // }
 // //Library property is passed through to Display Library Function
 
+
 export default App
+
