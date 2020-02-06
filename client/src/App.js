@@ -34,6 +34,7 @@ const App = () => {
           <Link to="/login">
             <NavButton>Login</NavButton>
           </Link>
+          <NavButton>Log Out</NavButton>
         </NavBar>
         <Switch>
           <Route exact path="/">

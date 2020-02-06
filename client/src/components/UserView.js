@@ -2,6 +2,7 @@ import React from "react";
 import GetMyLibraryInventory from "./GetMyLibraryInventory";
 import ReturnBook from "./ReturnBook";
 import BorrowBook from "./BorrowBook";
+import Logout from "./LogOut";
 
 const UserView = props => {
   console.log("user ID: ", props);
@@ -11,6 +12,7 @@ const UserView = props => {
       <GetMyLibraryInventory />
       <BorrowBook />
       <ReturnBook />
+      <Logout />
     </div>
   );
 };
