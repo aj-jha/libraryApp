@@ -37,6 +37,7 @@ const GetMyLibraryInventory = props => {
             <div>{book.author}</div>
             <div>{book.status}</div>
             <div>{book.borrower == null ? "" : book.borrower.name}</div>
+            <button>button</button>
           </BooksInLibrary>
         )
       })}
