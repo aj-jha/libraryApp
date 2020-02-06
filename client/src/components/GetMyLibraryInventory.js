@@ -50,18 +50,31 @@ const GetMyLibraryInventory = props => {
   }
   return (
     <div>
-      {data.getMyLibraryInventory.map(book => {
-        return (
-          <BooksInLibrary>
-            <div>{book.id}</div>
-            <div>{book.title}</div>
-            <div>{book.author}</div>
-            <div>{book.status}</div>
-            <div>{book.borrower == null ? "" : book.borrower.name}</div>
-            <button onClick={() => handleClick(book.id)}>Borrow</button>
-          </BooksInLibrary>
-        )
-      })}
+      <table>
+        <tr>
+          {Object.keys(data.getMyLibraryInventory[0]).map(key => {
+            if (key !== "library") {
+              return <th>{key}</th>
+            }
+          })}
+        </tr>
+        {data.getMyLibraryInventory.map(book => {
+          return (
+            <tr>
+              {Object.values(book).map(value => {
+                {
+                  if (typeof value !== "object") {
+                    return <td>{value}</td>
+                  }
+                }
+              })}
+              <td>
+                <button onClick={() => handleClick(book.id)}>Borrow</button>
+              </td>
+            </tr>
+          )
+        })}
+      </table>
     </div>
   )
 }
