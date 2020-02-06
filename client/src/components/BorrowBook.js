@@ -1,3 +1,4 @@
+//NOT CURRENTLY IN USE
 import React from "react"
 import { Formik } from "formik"
 import { useMutation } from "react-apollo-hooks"
@@ -19,7 +20,6 @@ const BorrowBook = () => {
       }
     }
   `
-
   const GET_MYLIBRARY_INVENTORY = gql`
     query {
       getMyLibraryInventory {
@@ -112,5 +112,3 @@ const BorrowBook = () => {
     </div>
   )
 }
-
-export default BorrowBook
