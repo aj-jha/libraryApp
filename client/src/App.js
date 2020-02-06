@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
 
 import {
@@ -7,18 +7,19 @@ import {
   Route,
   Link,
   Redirect
-} from "react-router-dom";
+} from "react-router-dom"
 
-import "./App.css";
-import DisplayInventory from "./components/DisplayInventory";
-import AddBook from "./components/AddBook";
-import Signup from "./components/Signup";
-import Login from "./components/LoginForm";
-import LibrarianView from "./components/LibrarianView";
-import NavButton from "./components/styledComponents/NavButton";
-import UserView from "./components/UserView";
-import NavBar from "./components/styledComponents/NavBar";
-import HomeView from "./components/HomeView";
+import "./App.css"
+import DisplayInventory from "./components/DisplayInventory"
+import AddBook from "./components/AddBook"
+import Signup from "./components/Signup"
+import Login from "./components/LoginForm"
+import LibrarianView from "./components/LibrarianView"
+import NavButton from "./components/styledComponents/NavButton"
+import UserView from "./components/UserView"
+import NavBar from "./components/styledComponents/NavBar"
+import HomeView from "./components/HomeView"
+import WelcomeBox from "./components/styledComponents/WelcomeBox"
 
 const App = () => {
   return (
@@ -34,10 +35,15 @@ const App = () => {
           <Link to="/login">
             <NavButton>Login</NavButton>
           </Link>
+          <a href="https://www.timeanddate.com/countdown/party?iso=20200322T00&p0=250&msg=Kath%27s+Big+Day&ud=1&font=cursive&csz=1">
+            <NavButton>Special</NavButton>
+          </a>
         </NavBar>
         <Switch>
           <Route exact path="/">
-            <HomeView />
+            <WelcomeBox>
+              <HomeView />
+            </WelcomeBox>
           </Route>
           <Route exact path="/signUp">
             <Signup />
@@ -71,8 +77,8 @@ const App = () => {
         </Switch>
       </div>
     </Router>
-  );
-};
+  )
+}
 
 // class App extends React.Component {
 //   constructor() {
@@ -218,4 +224,4 @@ const App = () => {
 // }
 // //Library property is passed through to Display Library Function
 
-export default App;
+export default App
