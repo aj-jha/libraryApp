@@ -19,6 +19,7 @@ import NavButton from "./components/styledComponents/NavButton"
 import UserView from "./components/UserView"
 import NavBar from "./components/styledComponents/NavBar"
 import HomeView from "./components/HomeView"
+import WelcomeBox from "./components/styledComponents/WelcomeBox"
 
 const App = () => {
   return (
@@ -34,10 +35,15 @@ const App = () => {
           <Link to="/login">
             <NavButton>Login</NavButton>
           </Link>
+          <a href="https://www.timeanddate.com/countdown/party?iso=20200322T00&p0=250&msg=Kath%27s+Big+Day&ud=1&font=cursive&csz=1">
+            <NavButton>Special</NavButton>
+          </a>
         </NavBar>
         <Switch>
           <Route exact path="/">
-            <HomeView />
+            <WelcomeBox>
+              <HomeView />
+            </WelcomeBox>
           </Route>
           <Route exact path="/signUp">
             <Signup />
@@ -73,7 +79,9 @@ const App = () => {
     </Router>
   )
 }
+
 export default App
+
 // class App extends React.Component {
 //   constructor() {
 //     super();
@@ -217,3 +225,7 @@ export default App
 //   }
 // }
 // //Library property is passed through to Display Library Function
+
+
+export default App
+
