@@ -1,13 +1,7 @@
 import React from "react"
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
 
 import "./App.css"
 import DisplayInventory from "./components/DisplayInventory"
@@ -53,10 +47,7 @@ const App = () => {
           <Route path="/login">
             <Login />
           </Route>
-          <Route
-            path="/inventories/:id"
-            render={props => <DisplayInventory {...props} />}
-          />
+          <Route path="/inventories/:id" render={props => <DisplayInventory {...props} />} />
 
           <Route path="/signup">
             <Signup />
@@ -68,10 +59,7 @@ const App = () => {
             <AddBook />
           </Route>
 
-          <Route
-            path="/librarian"
-            render={props => <LibrarianView {...props} />}
-          />
+          <Route path="/librarian" render={props => <LibrarianView {...props} />} />
 
           <Redirect to="/" />
         </Switch>
@@ -225,7 +213,3 @@ export default App
 //   }
 // }
 // //Library property is passed through to Display Library Function
-
-
-export default App
-
