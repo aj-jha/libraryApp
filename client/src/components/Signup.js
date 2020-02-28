@@ -126,10 +126,9 @@ const Signup = () => {
       {loading && <div>Loading: {loading}</div>}
       {error && <div>Error: {error}</div>}
       {data && (
-        <div>
+        <div data-cy="result">
           {data.signup.user != null
-            ? `${data.signup.user.name} has been signed
-          up`
+            ? `${data.signup.user.name} has been signed up`
             : `Something went wrong: ${data.signup.error}`}
         </div>
       )}
