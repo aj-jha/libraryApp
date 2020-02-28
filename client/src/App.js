@@ -1,7 +1,13 @@
 import React from "react"
 // Apollo Provide tells the all of the queries & mutations in our code where to connect to. Gets its info from apollo Client
 
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom"
 
 import "./App.css"
 import DisplayInventory from "./components/DisplayInventory"
@@ -14,6 +20,7 @@ import UserView from "./components/UserView"
 import NavBar from "./components/styledComponents/NavBar"
 import HomeView from "./components/HomeView"
 import WelcomeBox from "./components/styledComponents/WelcomeBox"
+import Logout from "./components/Logout"
 
 const App = () => {
   return (
@@ -29,6 +36,9 @@ const App = () => {
           <Link to="/login">
             <NavButton>Login</NavButton>
           </Link>
+          <Link to="/">
+            <Logout />
+          </Link>
           <a href="https://www.timeanddate.com/countdown/party?iso=20200322T00&p0=250&msg=Kath%27s+Big+Day&ud=1&font=cursive&csz=1">
             <NavButton>Special</NavButton>
           </a>
@@ -42,12 +52,14 @@ const App = () => {
           <Route exact path="/signUp">
             <Signup />
           </Route>
-
           <Route path="/userhome" render={props => <UserView {...props} />} />
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/inventories/:id" render={props => <DisplayInventory {...props} />} />
+          <Route
+            path="/inventories/:id"
+            render={props => <DisplayInventory {...props} />}
+          />
 
           <Route path="/signup">
             <Signup />
@@ -59,7 +71,10 @@ const App = () => {
             <AddBook />
           </Route>
 
-          <Route path="/librarian" render={props => <LibrarianView {...props} />} />
+          <Route
+            path="/librarian"
+            render={props => <LibrarianView {...props} />}
+          />
 
           <Redirect to="/" />
         </Switch>
