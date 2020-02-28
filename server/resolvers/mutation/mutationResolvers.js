@@ -362,6 +362,11 @@ module.exports = {
           error: e.message
         }
       }
+    },
+    async logout(parent, args, { app, req, authUtil, postgres }, info) {
+      const cookieName = app.get("JWT_TOKEN_NAME")
+      req.res.clearCookie(cookieName)
+      return true
     }
   }
 }
