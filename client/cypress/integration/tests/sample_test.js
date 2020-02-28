@@ -122,3 +122,29 @@ describe("Borrow and Return Book", () => {
       })
   })
 })
+
+describe("Add Book Test", () => {
+  beforeEach(() => {
+    cy.clearCookies()
+    cy.visit("http://localhost:3000/")
+    cy.contains("Login").click()
+    cy.get("[name=email]").type("katherine@katherine.com")
+    cy.get("[name=password]").type("123456")
+    cy.contains("Submit").click()
+  })
+  it("Adds a book", () => {
+    cy.exec("cd ../server && yarn db:ras")
+    cy.url().should("include", "/librarian")
+
+    cy.get("[name=title]").type("Book Add Test 1")
+    cy.get("[name=author]").type("Book Add Test Author")
+    cy.get("[name=library_id]").type("1")
+
+    cy.contains("Submit").click()
+
+    cy.get("[data-cy=addbook]").should(
+      "have.text",
+      "Book Add Test 1 has been added to library 1!"
+    )
+  })
+})

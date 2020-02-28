@@ -104,7 +104,7 @@ const AddBook = () => {
       {loading && <div>Loading...</div>}
       {error && console.log(error)}
       {data && (
-        <div>
+        <div data-cy="addbook">
           {data.addBook.error && <div>Error: {data.borrowBook.error}</div>}
           {data.addBook.book && (
             <div>
