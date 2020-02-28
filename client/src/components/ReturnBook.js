@@ -99,7 +99,7 @@ const ReturnBook = () => {
       {loading && <div>Loading: {loading}</div>}
       {error && <div>Error: {error}</div>}
       {data && (
-        <div>
+        <div data-cy="returnbook">
           {data.returnBook.error && <div>Error: {data.returnBook.error}</div>}
           {data.returnBook.book && (
             <div>{data.returnBook.book.title} has been returned!</div>
