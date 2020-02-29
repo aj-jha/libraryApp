@@ -148,3 +148,18 @@ describe("Add Book Test", () => {
     )
   })
 })
+describe("Logout Test", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:3000/")
+    cy.contains("Login").click()
+    cy.get("[name=email]").type("katherine@katherine.com")
+    cy.get("[name=password]").type("123456")
+    cy.contains("Submit").click()
+    cy.url().should("include", "/librarian")
+  })
+  it("Logs you out", () => {
+    cy.contains("Logout").click()
+    cy.url().should("eq", "http://localhost:3000/")
+    cy.getCookies().should("have.length", 0)
+  })
+})
