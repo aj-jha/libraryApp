@@ -91,6 +91,7 @@ const Login = () => {
           <div data-cy="loginresult">
             Email or Password is incorrect. Please Contact Katherine MCT for
             further assistance
+            {console.log("error", data)}
           </div>
         ) : (
           <div>

@@ -20,21 +20,19 @@ const BanUser = () => {
 
   const [banUser, { loading, error, data }] = useMutation(BANUSER_MUTATION)
 
-  console.log(data)
-
   return (
     <div>
       <Formik
         initialValues={{
-          id: ""
+          banid: ""
         }}
         validationSchema={Yup.object().shape({
-          id: Yup.number().required()
+          banid: Yup.number().required()
         })}
         onSubmit={(values, { setSubmitting }) => {
           banUser({
             variables: {
-              id: values.id
+              id: values.banid
             }
           })
           setSubmitting(false)
@@ -46,7 +44,7 @@ const BanUser = () => {
               <h1>Ban User</h1>
               <form onSubmit={fProps.handleSubmit}>
                 <input
-                  name="id"
+                  name="banid"
                   type="Number"
                   placeholder="user ID"
                   value={fProps.values.id}
@@ -56,24 +54,28 @@ const BanUser = () => {
                 {fProps.errors.id && fProps.touched.id && (
                   <div>{fProps.errors.id}</div>
                 )}
-                <button type="submit">Submit</button>
+                <button name="banbutton" type="submit">
+                  Ban!
+                </button>
               </form>
             </div>
           )
         }}
       </Formik>
-      {loading && <div>Loading: {loading}</div>}
-      {error && <div>Error: {error}</div>}
+      {loading && <div>Loading... {console.log(loading)}</div>}
+      {error && <div>Error...</div>}
       {data &&
         (!data.banUser.user ? (
           <div>
             {console.log(data.banUser.error)}
             Something Went Wrong
           </div>
-        ) : data.banUser.user.banned ? (
-          <div>{data.banUser.user.name} has been banned</div>
         ) : (
-          <div>{data.banUser.user.name} has been unbanned</div>
+          <div data-cy="banresults">
+            {data.banUser.user.banned
+              ? `${data.banUser.user.name} has been banned`
+              : `${data.banUser.user.name} has been unbanned`}
+          </div>
         ))}
     </div>
   )
