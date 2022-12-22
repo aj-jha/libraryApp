@@ -21,7 +21,7 @@
     "cookie-parser": "^1.4.4",
     "cookieparser": "^0.1.0",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "node-pg-migrate": "^3.21.0",
     "nodemon": "^2.0.2",
     "pg": "^7.17.1",
